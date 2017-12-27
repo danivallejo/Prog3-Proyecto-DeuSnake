@@ -20,8 +20,7 @@ import javax.swing.JPanel;
 	public class JLabelBloque extends JLabel 
 	{
 		private static final long serialVersionUID = 1L;  // Para serialización
-		public static final int TAMANYO_BLOQUE_HORIZONTAL = 10;// píxels (igual ancho que algo)
-		public static final int TAMANYO_BLOQUE_VERTICAL = 30;
+		public static final int TAMANYO_BLOQUE= 30; // píxels (igual ancho que algo)
 		public static final int RADIO_ESFERA_BLOQUE = 10;		
 		ImageIcon icono;
 		
@@ -42,7 +41,7 @@ import javax.swing.JPanel;
 				System.err.println( "Error en carga de recurso: coche.png no encontrado" );
 				e.printStackTrace();
 			}
-			setBounds( 0, 0, 30, 30);
+			setSize(TAMANYO_BLOQUE, TAMANYO_BLOQUE);
 			// Esto sería útil cuando hay algún problema con el gráfico: borde de color del JLabel
 			setBorder( BorderFactory.createLineBorder( Color.CYAN, 1 ));
 		}

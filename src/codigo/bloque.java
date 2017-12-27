@@ -5,32 +5,15 @@ import javax.swing.JLabel;
 public class bloque 
 
 {
-	private double miVelocidad; // Velocidad en pixels/segundo
 	 protected double miDireccionActual; // Dirección en la que estoy mirando en grados (de 0 a 360)
 	 protected double posX; // Posición en X (horizontal)
 	 protected double posY; // Posición en Y (vertical)
 	
 	public bloque()
 	{
-		
-		miVelocidad=200.0;
 		miDireccionActual=0.0;
-		posX = 300;
-		posY = 300;
 		
 	} 
-	public double getMiVelocidad()
-	{
-		return miVelocidad;
-	}
-	/** Cambia la velocidad actual del coche
-	 * @param miVelocidad
-	 */
-	public void setVelocidad( double miVelocidad ) 
-	{
-		this.miVelocidad = miVelocidad;
-	}
-
 	public double getDireccionActual() 
 	{
 		return miDireccionActual;
@@ -72,16 +55,29 @@ public class bloque
 	 */
 	public void gira( double giro ) 
 	{
-		setDireccionActual( miDireccionActual + giro );
+		setDireccionActual(giro );
 	}
 	
 	/** Cambia la posición del coche dependiendo de su velocidad y dirección
-	 * @param tiempoDeMovimiento	Tiempo transcurrido, en segundos
 	 */
-	public void mueve( double tiempoDeMovimiento ) {
-		setPosX( posX + miVelocidad * Math.cos(miDireccionActual/180.0*Math.PI) * tiempoDeMovimiento );
-		setPosY( posY + miVelocidad * -Math.sin(miDireccionActual/180.0*Math.PI) * tiempoDeMovimiento );
+	public void mueveX( ) 
+	{
+
+		if(miDireccionActual==0|| miDireccionActual==180)
+		{
+		setPosX(posX+(5*Math.cos(miDireccionActual/180.0*Math.PI)));
+		}
+	}
+	public void mueveY( ) 
+	{
+		
+		if(miDireccionActual==270|| miDireccionActual==90)
+		{
+		setPosY(posY+(5*-Math.sin(miDireccionActual/180.0*Math.PI)));
+//		setPosX( posX + miVelocidad * Math.cos(miDireccionActual/180.0*Math.PI) * tiempoDeMovimiento );
+//		setPosY( posY + miVelocidad * -Math.sin(miDireccionActual/180.0*Math.PI) * tiempoDeMovimiento );
 		// el negativo es porque en pantalla la Y crece hacia abajo y no hacia arriba
+		}
 	}
 	
 	//TODO: podríamos hacer toString si lo necesitaramos

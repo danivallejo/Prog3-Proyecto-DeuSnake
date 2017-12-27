@@ -2,6 +2,7 @@ package codigo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -10,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,9 +27,13 @@ public class pantalla extends JFrame
 	JPanel pPrincipal; // Panel del juego (layout nulo)
 	JPanel pCabecera;
 	bloqueJuego miBloque; // Coche del juego
-	manzana miManzana;
-	MiRunnable miHilo = null;  // Hilo del bucle principal de juego	
-
+	manzana miManzana = null;
+	MiRunnable miHilo = null;// Hilo del bucle principal de juego
+	RandomApple miHilo2 = null;
+	int num_casillas[][] = new int [17][15];
+	Point posicion = new Point(6, 8);
+	boolean posible = true;
+	
 	/** Constructor de la ventana de juego. Crea y devuelve la ventana inicializada
 	 * sin coches dentro
 	 */
@@ -51,7 +57,7 @@ public class pantalla extends JFrame
 		add( pCabecera, BorderLayout.NORTH );
 //		pCabecera.setBounds(200, 200, 700, 200);
 		// Formato de ventana
-		setSize( 700, 500 );
+		setSize( 850, 850);
 		// Escuchadores de botones
 //	Rankings.addActionListener( new ActionListener() 
 //		{
@@ -90,6 +96,9 @@ public class pantalla extends JFrame
 		pPrincipal.addKeyListener( new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
+				
+			if(posible)
+			{
 				switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP: {
 						miBloque.setDireccionActual(90);  
@@ -108,6 +117,8 @@ public class pantalla extends JFrame
 						break;
 					}
 				}
+				
+			}
 			}
 		});
 		pPrincipal.setFocusable(true);
@@ -128,17 +139,15 @@ public class pantalla extends JFrame
 	}
 	
 	/** Crea un coche nuevo y lo añade a la ventana 
-	 * @param posX	Posición X de pixel del nuevo coche
-	 * @param posY	Posición Y de píxel del nuevo coche
+	 * @param 	Posición X de pixel del nuevo coche
+	 * @param e	Posición Y de píxel del nuevo coche
 	 */
-	public void creaBloque( int posX, int posY ) {
+	public void creaBloque( ) 
+	{
 		// Crear y añadir el coche a la ventana
 		miBloque = new bloqueJuego();
-		miBloque.setPosicion( posX, posY );
+		miBloque.setPosicion( 300, 400);
 		pPrincipal.add( miBloque.getGrafico());
-		
-		miManzana = new manzana();
-		pPrincipal.add(miManzana);
 		
 	}
 	
@@ -153,14 +162,26 @@ public class pantalla extends JFrame
 	 */
 	class MiRunnable implements Runnable {
 		boolean sigo = true;
+
 		@Override
 		public void run() {
 			// Bucle principal forever hasta que se pare el juego...
 			while (sigo) {
 				// Mover coche
-				miBloque.mueve( 0.040 );
+			posible = false;
+			
+				for (int i = 0; i<10; i++)
+				{
+					try {
+						miBloque.mueveX();
+						miBloque.mueveY();
+						Thread.sleep(5);
+					} catch (Exception e) {
+					}
+				}
+			posible = true;
 				// Chequear choques
-				if (miBloque.getPosX() < -JLabelBloque.TAMANYO_BLOQUE_HORIZONTAL/2 || miBloque.getPosX()>pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE_HORIZONTAL/2 ) {
+				if (miBloque.getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || miBloque.getPosX()>pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
 					// Espejo horizontal si choca en X
 					
 					
@@ -168,18 +189,19 @@ public class pantalla extends JFrame
 					System.out.println( "Game Over");
 					
 					miHilo.acaba();
+				
 				}
 				// Se comprueba tanto X como Y porque podría a la vez chocar en las dos direcciones
-				if (miBloque.getPosY() < -JLabelBloque.TAMANYO_BLOQUE_VERTICAL/2 || miBloque.getPosY()>pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE_VERTICAL/2 ) {
+				if (miBloque.getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || miBloque.getPosY()>pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
 					// Espejo vertical si choca en Y
 					System.out.println( "Game Over");
-					
+
 					miHilo.acaba();
 				
 				}
 				// Dormir el hilo 40 milisegundos
 				try {
-					Thread.sleep( 40 );
+					Thread.sleep( 40);
 				} catch (Exception e) {
 				}
 			}
@@ -191,18 +213,61 @@ public class pantalla extends JFrame
 		}
 	};
 	
-
+	class RandomApple implements Runnable {
+		boolean sigo2 = true;
+		@Override
+		public void run() {
+			Random r;
+			int  apple_posX;
+			int  apple_posY;
+			
+			// Bucle principal forever hasta que se pare el juego...
+			while (true) 
+			{
+				if(miManzana==null)
+				{
+				r= new Random();
+				apple_posX = r.nextInt(18);
+				apple_posY = r.nextInt(16);
+				
+				miManzana = new manzana();
+				miManzana.setLocation(apple_posX*50, apple_posY*50+100);
+				pPrincipal.add(miManzana);
+				}
+				// Dormir el hilo 40 milisegundos
+				try 
+				{	
+				Thread.sleep( 10 );
+				} catch (Exception e) {
+				}
+			}
+		}
+		/** Ordena al hilo detenerse en cuanto sea posible
+		 */
+		public void acaba() 
+		{
+			sigo2 = false;
+		}
+	};
 	public static void main(String[] args) 
 	{
 		// TODO Auto-generated method stub
 		pantalla miVentana = new pantalla();
-		miVentana.creaBloque( 150, 100 );
+		
+		miVentana.creaBloque();
 		miVentana.setVisible( true );
+		
 		//miVentana.miBloque.setPiloto( "Fernando Alonso" );
 		// Crea el hilo de movimiento del coche y lo lanza
+		
 		miVentana.miHilo = miVentana.new MiRunnable();  // Sintaxis de new para clase interna
 		Thread nuevoHilo = new Thread( miVentana.miHilo );
 		nuevoHilo.start();
-	}
+		
+		miVentana.miHilo2 = miVentana.new RandomApple();
+		Thread nuevoHilo2 = new Thread( miVentana.miHilo2 );
+		nuevoHilo2.start();
+		
+	}	
 
 }
