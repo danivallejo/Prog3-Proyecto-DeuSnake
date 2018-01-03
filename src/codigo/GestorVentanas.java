@@ -4,6 +4,7 @@ package codigo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -17,8 +18,10 @@ import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 
 /** Clase para gestionar visibilización de ventanas de forma global.
@@ -128,10 +131,10 @@ public class GestorVentanas
 		{
 	
 		}
-		if(false)
-		{
-		hacerVisible( GameOver.class, true, 0); //Buscar forma para ir hasta metodo cuando acabe la partida!!!!
-		}
+//		if(true)
+//		{
+//		hacerVisible( GameOver.class, true, 0); //Buscar forma para ir hasta metodo cuando acabe la partida!!!!
+//		}
 		if(GameOver.retry.isSelected()==true)
 		{
 		hacerVisible( Principal.class, true, 0 );// Volver a jugar OK
@@ -162,27 +165,37 @@ public class GestorVentanas
 @SuppressWarnings("serial")
 class PantallaInicio extends JFrame 
 {
-	JTextField usuario;
+	JTextField user;
 	protected static JButton jugar;
+	JLabel usuario;
 
 	JPanel panel;
 	
 	public PantallaInicio() 
 	{
-	usuario =new JTextField();
-	jugar = new JButton("Empezar Partida");
+	user =new JTextField();
+	user.setBounds(new Rectangle(50,25,100,25));
+	jugar = new JButton("Empezar");
+	jugar.setBounds(new Rectangle(150,25,100,25));
 	
-	usuario.setVisible(true);
+	usuario= new JLabel();
+	usuario.setText("Usuario: ");
+	usuario.setBounds(0, 25, 100, 25);
+	
+	user.setVisible(true);
 	jugar.setVisible(true);
+	usuario.setVisible(true);
 	
 
 	panel =new JPanel();
 	
 	add(panel, BorderLayout.CENTER);
 	
-	panel.add(usuario);
+	panel.add(user);
 	panel.add(jugar);
+	panel.add(usuario);
 	
+	panel.setLayout(null);
 	
 		if(usuario != null)
 		{
