@@ -222,6 +222,8 @@ class PantallaInicio extends JFrame
 					Thread nuevoHilo2 = new Thread( miVentana1.miHilo2 );
 					nuevoHilo2.start();
 					
+					miVentana1.miHilo3 = miVentana1.new cronometro();
+					
 					Thread nuevoHilo3 = new Thread (miVentana1.miHilo3 );
 					nuevoHilo3.start();
 				
