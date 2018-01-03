@@ -128,9 +128,10 @@ public class GestorVentanas
 		{
 	
 		}
-		
+		if(false)
+		{
 		hacerVisible( GameOver.class, true, 0); //Buscar forma para ir hasta metodo cuando acabe la partida!!!!
-		
+		}
 		if(GameOver.retry.isSelected()==true)
 		{
 		hacerVisible( Principal.class, true, 0 );// Volver a jugar OK
@@ -230,7 +231,7 @@ class Principal extends JFrame
 	static bloqueJuego miBloque; // Coche del juego
 	static manzana miManzana = null;
 	PantallaPrincipal.MiRunnable miHilo = null;// Hilo del bucle principal de juego
-	PantallaPrincipal.RandomApple miHilo2 = null;
+//PantallaPrincipal.RandomApple miHilo2 = null;
 	int num_casillas[][] = new int [17][15];
 	Point posicion = new Point(6, 8);
 	boolean posible = true;
@@ -266,20 +267,54 @@ class Principal extends JFrame
 				if(posible)
 				{
 					switch (e.getKeyCode()) {
-						case KeyEvent.VK_UP: {
-							miBloque.setDireccionActual(90);  
+						case KeyEvent.VK_UP: 
+						{
+							if(miBloque.getDireccionActual()==90||miBloque.getDireccionActual()==270)
+							{
+								
+							}
+							else
+							{
+								miBloque.setDireccionActual(90);  
+							}
 							break;
 						}
-						case KeyEvent.VK_DOWN: {
-							miBloque.setDireccionActual(270);  
+						case KeyEvent.VK_DOWN: 
+						{
+							if(miBloque.getDireccionActual()==90||miBloque.getDireccionActual()==270)
+							{
+								
+							}
+							else
+							{
+							miBloque.setDireccionActual(270); 
+							}
+							break;
+							
+						}
+						case KeyEvent.VK_LEFT: 
+						{
+							
+							if(miBloque.getDireccionActual()==0||miBloque.getDireccionActual()==180)
+							{
+								
+							}
+							else
+							{
+							miBloque.setDireccionActual(180); 
+							}
 							break;
 						}
-						case KeyEvent.VK_LEFT: {
-							miBloque.setDireccionActual(180);  
-							break;
-						}
-						case KeyEvent.VK_RIGHT: {
+						case KeyEvent.VK_RIGHT: 
+						{
+							if(miBloque.getDireccionActual()==0||miBloque.getDireccionActual()==180)
+							{
+								
+							}
+							else
+							{
 							miBloque.setDireccionActual(0);  
+							}
 							break;
 						}
 					}
