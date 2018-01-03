@@ -40,6 +40,11 @@ public class bloque
 		setPosX( posX );
 		setPosY( posY );
 	}
+	public void getPosicion( )
+	{
+		getPosX( );
+		getPosY( );
+	}
 	
 	public void setPosX( double posX ) {
 		this.posX = posX; 

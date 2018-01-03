@@ -86,17 +86,29 @@ public class PantallaPrincipal extends JFrame
 			// Bucle principal forever hasta que se pare el juego...
 			while (true) 
 			{
-				if(Principal.miManzana==null)
-				{
 				r= new Random();
 				apple_posX = r.nextInt(18);
-				apple_posY = r.nextInt(16);
+				apple_posY = r.nextInt(16);	
 				
+				
+				if(Principal.miManzana==null)
+				{
 				Principal.miManzana = new manzana();
 				Principal.miManzana.setLocation(apple_posX*50, apple_posY*50+100);
-				System.out.println("Ha aparecido la manzana");
 				Principal.pPrincipal.add(Principal.miManzana);
+				System.out.println("Aparece la manzana");
 				}
+				if(Principal.miManzana.getLocation().distance(Principal.miBloque.getPosX(), Principal.miBloque.getPosY()) < 15)
+				{	
+				Principal.miManzana.setLocation(apple_posX*50, apple_posY*50+100);
+				Principal.pPrincipal.add(Principal.miManzana);
+				System.out.println("La manzana cambia de posición");
+//				
+//				Principal.miManzana.setLocation(apple_posX*50, apple_posY*50+100);
+//				Principal.pPrincipal.add(Principal.miManzana);
+//				System.out.println("Aparece una nueva manzana");
+				}
+			
 				// Dormir el hilo 40 milisegundos
 				try 
 				{	

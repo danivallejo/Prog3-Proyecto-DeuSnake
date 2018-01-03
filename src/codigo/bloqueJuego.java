@@ -5,11 +5,6 @@ import javax.swing.JLabel;
 public class bloqueJuego extends bloque
 {
 	 private JLabelBloque miGrafico;
-
-//	public JLabelBloque getGrafico() 
-//	{
-//		return miGrafico;
-//	}	
 	 
 	 /**  Crea un nuevo coche de juego
 		 */
