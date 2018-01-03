@@ -209,6 +209,9 @@ class PantallaInicio extends JFrame
 					Thread nuevoHilo2 = new Thread( miVentana1.miHilo2 );
 					nuevoHilo2.start();
 					
+					Thread nuevoHilo3 = new Thread (miVentana1.miHilo3 );
+					nuevoHilo3.start();
+					
 				}
 				
 			});

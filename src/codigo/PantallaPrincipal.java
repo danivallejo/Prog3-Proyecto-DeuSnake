@@ -13,6 +13,7 @@ public class PantallaPrincipal extends JFrame
 	
 	MiRunnable miHilo = null;// Hilo del bucle principal de juego
 	RandomApple miHilo2 = null;
+	cronometro miHilo3 = null;
 	int num_casillas[][] = new int [17][15];
 	Point posicion = new Point(6, 8);
 	boolean posible = true;
@@ -111,5 +112,56 @@ public class PantallaPrincipal extends JFrame
 			sigo2 = false;
 		}
 	};
-	
+	class cronometro implements Runnable
+	{
+		boolean sigo3 = true;
+		@Override
+		public void run()
+		{
+			// TODO Auto-generated method stub
+			int segundos;
+			int decimas;
+			
+			segundos = 0;
+			decimas = 0;
+
+			try {
+			for ( ; ;)
+				{
+					if(decimas != 9)
+				{ 
+					decimas ++;
+				}else
+				{
+					segundos ++;
+					decimas = 0;
+				}
+
+			 System.out.println(segundos+":"+decimas);
+	         Thread.sleep(99);
+	         }   
+//			if (Principal.miBloque.getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque.getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+//				// Espejo horizontal si choca en X
+//				
+//				System.out.println( "Game Over");
+//				
+//				miHilo3.acaba();
+//			
+//			}
+//			// Se comprueba tanto X como Y porque podría a la vez chocar en las dos direcciones
+//			if (Principal.miBloque.getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque.getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+//				// Espejo vertical si choca en Y
+//				System.out.println( "Game Over");
+//
+//				miHilo3.acaba();
+//			}
+	     } catch (Exception ex) 
+		{
+	          System.out.println(ex.getMessage());
+	     }                 	
+		}
+		public void acaba() {
+			sigo3 = false;
+		}
+	};
 }
