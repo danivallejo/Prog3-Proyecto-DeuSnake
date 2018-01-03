@@ -224,7 +224,8 @@ class PantallaInicio extends JFrame
 					
 					Thread nuevoHilo3 = new Thread (miVentana1.miHilo3 );
 					nuevoHilo3.start();
-					
+				
+		//	Ficheros.escribirAFicheroSerializado("C://Program Files/Eclipse/workspace/Prog3-Proyecto-DeuSnake/data", null );
 				}
 				
 			});
