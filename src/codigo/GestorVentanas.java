@@ -249,7 +249,11 @@ class Principal extends JFrame
 	private static final long serialVersionUID = 1L;  // Para serialización
 	static JPanel pPrincipal; // Panel del juego (layout nulo)
 	JPanel pCabecera;
+<<<<<<< HEAD
 	static bloqueJuego [] miBloque;
+=======
+	static bloqueJuego [] miBloque; // Coche del juego
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 	static manzana miManzana = null;
 	PantallaPrincipal.MiRunnable miHilo = null;// Hilo del bucle principal de juego
 //PantallaPrincipal.RandomApple miHilo2 = null;
@@ -284,6 +288,7 @@ class Principal extends JFrame
 			pPrincipal.addKeyListener( new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent e) {
+<<<<<<< HEAD
 					for (int i = 0; i<growUp; i++)
 					{
 					if(posible)
@@ -302,6 +307,43 @@ class Principal extends JFrame
 								break;
 							}
 							case KeyEvent.VK_DOWN: 
+=======
+					
+				for (int i = 0; i<growUp; i++)
+				{
+				if(posible)
+				{
+					switch (e.getKeyCode()) {
+						case KeyEvent.VK_UP: 
+						{
+							if(miBloque[i].getDireccionActual()==90||miBloque[i].getDireccionActual()==270)
+							{
+								
+							}
+							else
+							{
+								miBloque[i].setDireccionActual(90);  
+							}
+							break;
+						}
+						case KeyEvent.VK_DOWN: 
+						{
+							if(miBloque[i].getDireccionActual()==90||miBloque[i].getDireccionActual()==270)
+							{
+								
+							}
+							else
+							{
+								miBloque[i].setDireccionActual(270); 
+							}
+							break;
+							
+						}
+						case KeyEvent.VK_LEFT: 
+						{
+							
+							if(miBloque[i].getDireccionActual()==0||miBloque[i].getDireccionActual()==180)
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 							{
 								if(miBloque[i].getDireccionActual()==90||miBloque[i].getDireccionActual()==270)
 								{
@@ -314,7 +356,19 @@ class Principal extends JFrame
 								break;
 								
 							}
+<<<<<<< HEAD
 							case KeyEvent.VK_LEFT: 
+=======
+							else
+							{
+								miBloque[i].setDireccionActual(180); 
+							}
+							break;
+						}
+						case KeyEvent.VK_RIGHT: 
+						{
+							if(miBloque[i].getDireccionActual()==0||miBloque[i].getDireccionActual()==180)
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 							{
 								
 								if(miBloque[i].getDireccionActual()==0||miBloque[i].getDireccionActual()==180)
@@ -329,6 +383,7 @@ class Principal extends JFrame
 							}
 							case KeyEvent.VK_RIGHT: 
 							{
+<<<<<<< HEAD
 								if(miBloque[i].getDireccionActual()==0||miBloque[i].getDireccionActual()==180)
 								{
 									
@@ -338,13 +393,24 @@ class Principal extends JFrame
 									miBloque[i].setDireccionActual(0);  
 								}
 								break;
+=======
+								miBloque[i].setDireccionActual(0);  
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 							}
 						}
 						
 					}
+<<<<<<< HEAD
 					}
 					}
 				});
+=======
+					
+				}
+				}
+				}
+			});
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 			pPrincipal.setFocusable(true);
 			pPrincipal.requestFocus();
 			pPrincipal.addFocusListener( new FocusAdapter() {
@@ -374,6 +440,8 @@ class Principal extends JFrame
 //		miBloque.setPosicion( 300, 400);
 //		pPrincipal.add( miBloque.getGrafico());
 	}
+	
+	
 }
 
 

@@ -36,6 +36,7 @@ public class PantallaPrincipal extends JFrame
 				// Mover coche
 			posible = false;
 			
+<<<<<<< HEAD
 			for (int i = 0; i<Principal.growUp; i++)
 			{
 				try {
@@ -51,6 +52,24 @@ public class PantallaPrincipal extends JFrame
 				// Chequear choques
 			if (Principal.miBloque[0].getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
 				// Espejo horizontal si choca en X
+=======
+				for (int i = 0; i<Principal.growUp; i++)
+				{
+					try {
+						Principal.miBloque[i].mueveX();
+						Principal.miBloque[i].mueveY();
+						if(i!=0)	Principal.miBloque[i].setDireccionActual(Principal.miBloque[i-1].miDireccionActual);
+						
+						Thread.sleep(5);
+					} catch (Exception e) {
+					}
+				}
+				
+			posible = true;
+				// Chequear choques
+				if (Principal.miBloque[0].getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+					// Espejo horizontal si choca en X
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 					
 					OperacionesGuardado.RegistrarJugador(Nombre, puntuacion, tiempofinal);
 					System.out.println( "Game Over");
@@ -60,10 +79,15 @@ public class PantallaPrincipal extends JFrame
 				
 				}
 				// Se comprueba tanto X como Y porque podría a la vez chocar en las dos direcciones
+<<<<<<< HEAD
 			if (Principal.miBloque[0].getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
 				// Espejo vertical si choca en Y
 					
 					OperacionesGuardado.RegistrarJugador(Nombre, puntuacion, tiempofinal);
+=======
+				if (Principal.miBloque[0].getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+					// Espejo vertical si choca en Y
+>>>>>>> 57e5fc69adc00ed2fc6aef8e1ed0308237463acc
 					System.out.println( "Game Over");
 					System.out.println("La puntuación es de: " + puntuacion);
 					
@@ -84,6 +108,14 @@ public class PantallaPrincipal extends JFrame
 			sigo = false;
 		}
 	};
+	public void growUp()
+	{
+		Principal.miBloque[Principal.growUp]=new bloqueJuego();
+		Principal.miBloque[Principal.growUp].setPosicion(Principal.miBloque[Principal.growUp-1].getPosX()-30, Principal.miBloque[Principal.growUp-1].getPosY());
+		Principal.pPrincipal.add(Principal.miBloque[Principal.growUp].getGrafico());
+		Principal.miBloque[Principal.growUp].setDireccionActual(Principal.miBloque[Principal.growUp-1].miDireccionActual);
+		Principal.growUp++;
+	}
 	
 	public void growUp()
 	{
