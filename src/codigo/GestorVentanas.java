@@ -247,14 +247,14 @@ class Principal extends JFrame
 	private static final long serialVersionUID = 1L;  // Para serialización
 	static JPanel pPrincipal; // Panel del juego (layout nulo)
 	JPanel pCabecera;
-	static bloqueJuego miBloque; // Coche del juego
+	static bloqueJuego [] miBloque; // Coche del juego
 	static manzana miManzana = null;
 	PantallaPrincipal.MiRunnable miHilo = null;// Hilo del bucle principal de juego
 //PantallaPrincipal.RandomApple miHilo2 = null;
 	int num_casillas[][] = new int [17][15];
 	Point posicion = new Point(6, 8);
 	boolean posible = true;
-	
+	static int growUp = 1;
 	/** Constructor de la ventana de juego. Crea y devuelve la ventana inicializada
 	 * sin coches dentro
 	 */
@@ -283,30 +283,32 @@ class Principal extends JFrame
 				@Override
 				public void keyPressed(KeyEvent e) {
 					
+				for (int i = 0; i<growUp; i++)
+				{
 				if(posible)
 				{
 					switch (e.getKeyCode()) {
 						case KeyEvent.VK_UP: 
 						{
-							if(miBloque.getDireccionActual()==90||miBloque.getDireccionActual()==270)
+							if(miBloque[i].getDireccionActual()==90||miBloque[i].getDireccionActual()==270)
 							{
 								
 							}
 							else
 							{
-								miBloque.setDireccionActual(90);  
+								miBloque[i].setDireccionActual(90);  
 							}
 							break;
 						}
 						case KeyEvent.VK_DOWN: 
 						{
-							if(miBloque.getDireccionActual()==90||miBloque.getDireccionActual()==270)
+							if(miBloque[i].getDireccionActual()==90||miBloque[i].getDireccionActual()==270)
 							{
 								
 							}
 							else
 							{
-							miBloque.setDireccionActual(270); 
+								miBloque[i].setDireccionActual(270); 
 							}
 							break;
 							
@@ -314,30 +316,31 @@ class Principal extends JFrame
 						case KeyEvent.VK_LEFT: 
 						{
 							
-							if(miBloque.getDireccionActual()==0||miBloque.getDireccionActual()==180)
+							if(miBloque[i].getDireccionActual()==0||miBloque[i].getDireccionActual()==180)
 							{
 								
 							}
 							else
 							{
-							miBloque.setDireccionActual(180); 
+								miBloque[i].setDireccionActual(180); 
 							}
 							break;
 						}
 						case KeyEvent.VK_RIGHT: 
 						{
-							if(miBloque.getDireccionActual()==0||miBloque.getDireccionActual()==180)
+							if(miBloque[i].getDireccionActual()==0||miBloque[i].getDireccionActual()==180)
 							{
 								
 							}
 							else
 							{
-							miBloque.setDireccionActual(0);  
+								miBloque[i].setDireccionActual(0);  
 							}
 							break;
 						}
 					}
 					
+				}
 				}
 				}
 			});
@@ -360,12 +363,18 @@ class Principal extends JFrame
 	}
 	public void creaBloque( ) 
 	{
-		// Crear y añadir el coche a la ventana
-		miBloque = new bloqueJuego();
-		miBloque.setPosicion( 300, 400);
-		pPrincipal.add( miBloque.getGrafico());
+//		// Crear y añadir el coche a la ventana
+		miBloque = new bloqueJuego[300];
+		miBloque[0]=new bloqueJuego();
+		miBloque[0].setPosicion( 300, 400);
+		pPrincipal.add( miBloque[0].getGrafico());
 		
+//		miBloque = new bloqueJuego();
+//		miBloque.setPosicion( 300, 400);
+//		pPrincipal.add( miBloque.getGrafico());
 	}
+	
+	
 }
 
 
