@@ -18,7 +18,7 @@ public class PantallaPrincipal extends JFrame
 	int num_casillas[][] = new int [17][15];
 	Point posicion = new Point(6, 8);
 	boolean posible = true;
-	int puntuacion = 0;
+	static int puntuacion = 0;
 	String tiempofinal;
 	
 	/** Constructor de la ventana de juego. Crea y devuelve la ventana inicializada
@@ -27,6 +27,7 @@ public class PantallaPrincipal extends JFrame
 
 	class MiRunnable implements Runnable {
 		boolean sigo = true;
+		String Nombre = PantallaInicio.Nombre;
 
 		@Override
 		public void run() {
@@ -35,20 +36,23 @@ public class PantallaPrincipal extends JFrame
 				// Mover coche
 			posible = false;
 			
-				for (int i = 0; i<10; i++)
-				{
-					try {
-						Principal.miBloque.mueveX();
-						Principal.miBloque.mueveY();
-						Thread.sleep(5);
-					} catch (Exception e) {
-					}
+			for (int i = 0; i<Principal.growUp; i++)
+			{
+				try {
+					Principal.miBloque[i].mueveX();
+					Principal.miBloque[i].mueveY();
+					if(i!=0)	Principal.miBloque[i].setDireccionActual(Principal.miBloque[i-1].miDireccionActual);
+					
+					Thread.sleep(5);
+				} catch (Exception e) {
 				}
+			}
 			posible = true;
 				// Chequear choques
-				if (Principal.miBloque.getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque.getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
-					// Espejo horizontal si choca en X
+			if (Principal.miBloque[0].getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+				// Espejo horizontal si choca en X
 					
+					OperacionesGuardado.RegistrarJugador(Nombre, puntuacion, tiempofinal);
 					System.out.println( "Game Over");
 					System.out.println("La puntuación es de: " + puntuacion);
 					
@@ -56,8 +60,10 @@ public class PantallaPrincipal extends JFrame
 				
 				}
 				// Se comprueba tanto X como Y porque podría a la vez chocar en las dos direcciones
-				if (Principal.miBloque.getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque.getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
-					// Espejo vertical si choca en Y
+			if (Principal.miBloque[0].getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+				// Espejo vertical si choca en Y
+					
+					OperacionesGuardado.RegistrarJugador(Nombre, puntuacion, tiempofinal);
 					System.out.println( "Game Over");
 					System.out.println("La puntuación es de: " + puntuacion);
 					
@@ -78,6 +84,15 @@ public class PantallaPrincipal extends JFrame
 			sigo = false;
 		}
 	};
+	
+	public void growUp()
+	{
+		Principal.miBloque[Principal.growUp]=new bloqueJuego();
+		Principal.miBloque[Principal.growUp].setPosicion(Principal.miBloque[Principal.growUp-1].getPosX()-30, Principal.miBloque[Principal.growUp-1].getPosY());
+		Principal.pPrincipal.add(Principal.miBloque[Principal.growUp].getGrafico());
+		Principal.miBloque[Principal.growUp].setDireccionActual(Principal.miBloque[Principal.growUp-1].miDireccionActual);
+		Principal.growUp++;
+	}
 	
 	class RandomApple implements Runnable {
 		boolean sigo2 = true;
@@ -107,11 +122,11 @@ public class PantallaPrincipal extends JFrame
 				}
 				
 				
-				if(Principal.miManzana.getLocation().distance(Principal.miBloque.getPosX(), Principal.miBloque.getPosY()) < 15)
+				if(Principal.miManzana.getLocation().distance(Principal.miBloque[0].getPosX(), Principal.miBloque[0].getPosY()) < 15)
 				{	
 				Principal.miManzana.setLocation(apple_posX*50, apple_posY*50+100);
 				Principal.pPrincipal.add(Principal.miManzana);
-				
+				growUp();
 				puntuacion = puntuacion + 1;
 				
 				}
@@ -135,6 +150,8 @@ public class PantallaPrincipal extends JFrame
 		}
 		
 	};
+	
+	
 	class cronometro implements Runnable
 	{
 		boolean sigo3 = true;
@@ -166,7 +183,7 @@ public class PantallaPrincipal extends JFrame
 					tiempofinal = segundos +"."+decimas;
 					
 					
-					if (Principal.miBloque.getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque.getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+					if (Principal.miBloque[0].getPosX() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosX()>Principal.pPrincipal.getWidth()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
 						// Espejo horizontal si choca en X
 						
 						System.out.println( "Game Over");
@@ -177,7 +194,7 @@ public class PantallaPrincipal extends JFrame
 					
 					}
 					// Se comprueba tanto X como Y porque podría a la vez chocar en las dos direcciones
-					else if (Principal.miBloque.getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque.getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
+					else if (Principal.miBloque[0].getPosY() < -JLabelBloque.TAMANYO_BLOQUE/2 || Principal.miBloque[0].getPosY()>Principal.pPrincipal.getHeight()-JLabelBloque.TAMANYO_BLOQUE/2 ) {
 						// Espejo vertical si choca en Y
 						System.out.println( "Game Over");
 						sigo3 = false;
